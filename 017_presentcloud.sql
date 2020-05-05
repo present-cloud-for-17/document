@@ -1,9 +1,7 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2020/4/7 11:22:49                            */
+/* Created on:     2020/5/5 21:31:32                            */
 /*==============================================================*/
-create database pcs;
-
 use pcs;
 
 drop table if exists button;
@@ -33,7 +31,7 @@ drop table if exists user_verification;
 /*==============================================================*/
 create table button
 (
-   b_id                 int not null,
+   b_id                 int not null auto_increment,
    b_name               char(50),
    icon                 char(100),
    description          varchar(200),
@@ -49,7 +47,7 @@ create table button
 /*==============================================================*/
 create table dictionary
 (
-   d_id                 int not null,
+   d_id                 int not null auto_increment,
    chinese_name         int,
    english_name         int,
    primary key (d_id)
@@ -60,14 +58,14 @@ create table dictionary
 /*==============================================================*/
 create table dictionary_detail
 (
-   dd_id                   int not null,
-   d_id              int,
+   dd_id                int not null auto_increment,
+   d_id                 int,
    english_tag          varchar(16),
    key_value            int,
    is_default           boolean,
    value                varchar(16),
    sort                 int,
-   primary key (id)
+   primary key (dd_id)
 );
 
 /*==============================================================*/
@@ -75,7 +73,7 @@ create table dictionary_detail
 /*==============================================================*/
 create table menu
 (
-   m_id                 int not null,
+   m_id                 int not null auto_increment,
    parent_id            int,
    menu_name            varchar(16),
    icon                 varchar(16),
@@ -95,7 +93,7 @@ create table menu
 /*==============================================================*/
 create table menu_button
 (
-   mb_id                int not null,
+   mb_id                int not null auto_increment,
    m_id                 int,
    b_id                 int,
    status               int,
@@ -107,7 +105,7 @@ create table menu_button
 /*==============================================================*/
 create table permission
 (
-   p_id                 int not null,
+   p_id                 int not null auto_increment,
    p_name               varchar(50),
    description          varchar(200),
    creator              int,
@@ -122,7 +120,7 @@ create table permission
 /*==============================================================*/
 create table role
 (
-   r_id                 int not null,
+   r_id                 int not null auto_increment,
    r_name               varchar(50),
    description          varchar(200),
    creator              int,
@@ -137,7 +135,7 @@ create table role
 /*==============================================================*/
 create table role_permission
 (
-   rp_id                int not null,
+   rp_id                int not null auto_increment,
    r_id                 int,
    p_id                 int,
    status               int,
@@ -149,11 +147,11 @@ create table role_permission
 /*==============================================================*/
 create table user
 (
-   u_id                 int not null,
+   u_id                 int not null auto_increment,
    u_number             int,
    u_name               varchar(50),
-   phone                int,
-   emaile               varchar(32),
+   phone                varchar(50),
+   emaile               varchar(50),
    create_date          datetime,
    status               int,
    primary key (u_id)
@@ -164,7 +162,7 @@ create table user
 /*==============================================================*/
 create table user_role
 (
-   ur_id                int not null,
+   ur_id                int not null auto_increment,
    u_id                 int,
    r_id                 int,
    status               int,
@@ -176,7 +174,7 @@ create table user_role
 /*==============================================================*/
 create table user_verification
 (
-   uv_id                int not null,
+   uv_id                int not null auto_increment,
    u_id                 int,
    login_type           int,
    is_third             boolean,
