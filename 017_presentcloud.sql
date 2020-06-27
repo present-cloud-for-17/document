@@ -37,6 +37,8 @@ drop table if exists course;
 
 drop table if exists sign_in;
 
+drop table if exists person_course;
+
 /*==============================================================*/
 /* Table: button                                                */
 /*==============================================================*/
@@ -279,8 +281,8 @@ create table person
    primary key (pe_id)
 );
 select * from person;
-insert into person values(1,1,1,'123','张三',1,'2019','软件工程',1,0);
-insert into person values(2,1,1,'456','李四',1,'2019','软件工程',1,0);
+personinsert into person values(1,1,1,'123','张三',1,'2019','软件工程',1,0);
+insert into person values(2,2,1,'456','李四',1,'2019','软件工程',1,0);
 
 /*==============================================================*/
 /* Table: course                                                */
@@ -323,6 +325,27 @@ insert into sign_in values(1,'123','张三','111','软件工程',1,'2020-05-15 1
 insert into sign_in values(2,'234','李四','112','数据库',1,'2020-05-15 16:35:01','福州大学');
 
 
+/*==============================================================*/
+/* Table: person_course                                         */
+/*==============================================================*/
+create table person_course
+(
+   pc_id                 int not null auto_increment,
+   pe_id                int,
+   c_id                 int,
+   value                 int,
+   status                 int,
+   primary key (pc_id)
+
+);
+
+select * from person_course;
+insert into person_course values(1,1,1,0,1);
+insert into person_course values(2,1,1,0,1);
+
+select pc.*,c.c_name,c.term FROM person_course pc left outer join course c on pc.c_id = c.c_id where pc.pe_id = 1;
+        
+
 alter table dictionary_detail add constraint FK_FK_DictDetail_Reference_Dict foreign key (d_id)
       references dictionary (d_id) on delete restrict on update restrict;
 
@@ -356,3 +379,8 @@ alter table person add constraint FK_FK_Person_Reference_User foreign key (u_id)
 alter table person add constraint FK_FK_Person_Reference_School foreign key (s_id)
       references school (s_id) on delete restrict on update restrict;
 
+alter table person_course add constraint FK_FK_Person_Course_Reference_Person foreign key (pe_id)
+      references person (pe_id) on delete restrict on update restrict;
+
+alter table person_course add constraint FK_FK_Person_Course_Reference_Course foreign key (c_id)
+      references course (c_id) on delete restrict on update restrict;

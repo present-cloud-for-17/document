@@ -1,0 +1,22 @@
+http://175.24.88.62:8080/pcs/实体类名(首字母小写)/findAll.do --- 查找所有记录
+
+http://175.24.88.62:8080/pcs/实体类名(首字母小写)/selectByPrimaryKey.do --- 查找单条记录（post请求,根据主键查找，主键拼写和实体类主键一致，发送信息格式：json）
+
+http://175.24.88.62:8080/pcs/实体类名(首字母小写)/deleteByPrimaryKey.do--- 删除单条记录（post请求,根据主键删除，主键拼写和实体类主键一致, 发送信息格式：json）
+
+http://175.24.88.62:8080/pcs/实体类名(首字母小写)/updateByPrimaryKey.do --- 修改单条记录（post请求,需要修改哪个字段就把哪个字段对应的值发送到服务器，需要带主键，主键和字段拼写和实体类主键一致,发送信息格式：json）
+
+http://175.24.88.62:8080/pcs/实体类名(首字母小写)/insert.do --- 添加单条记录（post请求,发送信息格式：json）
+
+http://175.24.88.62:8080/pcs/personCourse/createdCourse.do --- 我创建的（post请求,根据peId查找，发送信息格式：json）注：教师没有返回，先空着或删除这个字段
+http://175.24.88.62:8080/pcs/personCourse/addedCourse.do --- 我加入的（post请求,根据peId查找，发送信息格式：json）注：教师没有返回，先空着或删除这个字段
+http://175.24.88.62:8080/pcs/course/insert.do --- 创建班课（post请求,发送信息格式：json）
+http://175.24.88.62:8080/pcs/personCourse/insert.do --- 加入班课（post请求,发送信息格式：json
+http://175.24.88.62:8080/pcs/personCourse/selectPersonBycId.do --- 显示成员（post请求,根据cId查找,发送信息格式：json）
+http://175.24.88.62:8080/pcs/signIn/insert.do --- 签到（post请求,根据cId查找,发送信息格式：json）
+
+http://175.24.88.62:8080/pcs/userVerification/login.do --- 登录（post请求,登录需要的字段：loginType,loginToken,passwordToken,发送信息格式：json,返回用户，密码信息，用户师生信息，token,以后每次发送请求，请求头都需要携带token）
+http://175.24.88.62:8080/pcs/user/register.do  --- 注册（post请求,发送信息格式：json,注册用户信息的同时会自动向密码表添加三种登录方式（1 - 账号登录，2-手机号登录，3-邮箱登录）的三条记录，初始密码为123456）
+
+
+
