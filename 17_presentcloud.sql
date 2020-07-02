@@ -39,6 +39,8 @@ drop table if exists sign_in;
 
 drop table if exists person_course;
 
+drop table if exists parameter;
+
 /*==============================================================*/
 /* Table: button                                                */
 /*==============================================================*/
@@ -60,18 +62,21 @@ insert into button values(2,'查找','/icon/select.jpg','查找功能',1,'2020-0
 insert into button values(3,'修改','/icon/modify.jpg','修改功能',1,'2020-05-15 16:35:01',1,'2020-05-15 16:35:01');
 insert into button values(4,'删除','/icon/delete.jpg','删除功能',1,'2020-05-15 16:35:01',1,'2020-05-15 16:35:01');
 
-
 /*==============================================================*/
 /* Table: dictionary                                            */
 /*==============================================================*/
 create table dictionary
 (
    d_id                 int not null auto_increment,
-   chinese_name         int,
-   english_name         int,
+   chinese_name         varchar(200),
+   english_name         varchar(200),
    primary key (d_id)
 );
+
 select * from dictionary;
+insert into dictionary values(1,'学籍','schoolroll');
+insert into dictionary values(2,'性别','sex');
+insert into dictionary values(3,'专业','major');
 
 /*==============================================================*/
 /* Table: dictionary_detail                                     */
@@ -80,14 +85,18 @@ create table dictionary_detail
 (
    dd_id                int not null auto_increment,
    d_id                 int,
-   english_tag          varchar(16),
-   key_value            int,
-   is_default           boolean,
-   value                varchar(16),
-   sort                 int,
+   dd_name               varchar(200),
+   is_default           int,
    primary key (dd_id)
 );
+
 select * from dictionary_detail;
+insert into dictionary_detail values(1,1,'福建',0);
+insert into dictionary_detail values(2,1,'上海',1);
+insert into dictionary_detail values(3,2,'男',0);
+insert into dictionary_detail values(4,2,'女',1);
+insert into dictionary_detail values(5,3,'计算机',0);
+insert into dictionary_detail values(6,3,'软件工程',1);
 
 /*==============================================================*/
 /* Table: menu                                                  */
@@ -168,7 +177,7 @@ create table role
    primary key (r_id)
 );
 select * from role;
-insert into role values(1,'学生','上课',001,'2020-05-15 16:35:01',001,'2020-05-15 16:35:01');
+insert into role values(1,'学生','上课',1001,'2020-05-15 16:35:01',001,'2020-05-15 16:35:01');
 insert into role values(2,'教师','教学',002,'2020-05-15 16:35:01',002,'2020-05-15 16:35:01');
 insert into role values(3,'管理员','管理系统',002,'2020-05-15 16:35:01',002,'2020-05-15 16:35:01');
 insert into role values(4,'班长','管理学生',002,'2020-05-15 16:35:01',002,'2020-05-15 16:35:01');
@@ -262,6 +271,12 @@ create table school
 select * from school;
 insert into school values(1,'福州大学','数计学院','软件工程');
 insert into school values(2,'福州大学','数计学院','计算机技术');
+insert into school values(3,'福州大学','经济管理学院','会计');
+insert into school values(4,'福州大学','经济管理学院','电子商务');
+insert into school values(5,'厦门大学','数计学院','软件工程');
+insert into school values(6,'厦门大学','数计学院','计算机技术');
+insert into school values(7,'厦门大学','经济管理学院','会计');
+insert into school values(8,'厦门大学','经济管理学院','电子商务');
 
 /*==============================================================*/
 /* Table: person                                                */
@@ -281,8 +296,9 @@ create table person
    primary key (pe_id)
 );
 select * from person;
-personinsert into person values(1,1,1,'123','张三',1,'2019','软件工程',1,0);
+insert into person values(1,1,1,'123','张三',1,'2019','软件工程',1,0);
 insert into person values(2,2,1,'456','李四',1,'2019','软件工程',1,0);
+delete from person where pe_id = 2;
 
 /*==============================================================*/
 /* Table: course                                                */
@@ -342,6 +358,22 @@ create table person_course
 select * from person_course;
 insert into person_course values(1,1,1,0,1);
 insert into person_course values(2,1,1,0,1);
+
+
+/*==============================================================*/
+/* Table: parameter                                             */
+/*==============================================================*/
+create table parameter
+(
+   pa_id                int not null auto_increment,
+   pa_name              varchar(200),
+   description          varchar(400),
+   value                double,
+   primary key (pa_id)
+);
+select * from parameter;
+insert into parameter values(1,'签到经验值','一次签到获取的经验值',1.0);
+insert into parameter values(2,'签到有效距离','在指定有效范围内方可签到',50.0);
 
 select pc.*,c.c_name,c.term FROM person_course pc left outer join course c on pc.c_id = c.c_id where pc.pe_id = 1;
         
